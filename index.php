@@ -1,6 +1,7 @@
 <?php
 require('telegramapi.php');
 require('config.php');
+require('ipapi.php');
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
@@ -21,6 +22,9 @@ Giorno & Ora : $today \n
 ";
 
 echo $message;
-sm($bot_admin_id, $message);
+//$ip_query = ip2($ip);
+get_ip_info($ip);
 sendMessage($bot_admin_id, $message);
+
+
 ?>

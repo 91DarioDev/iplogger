@@ -17,7 +17,7 @@ function post($url, $data) {
 
 //SendMessage
 function sendMessage($chat_id, $msg, $parse_mode, $reply_to_message_id, $disable_web_page_preview, $disable_notification, $reply_markup) {
-
+	global $tg_api_url;
 	$post = array(
       'chat_id' => $chat_id,
       'text' => $msg,
@@ -30,10 +30,6 @@ function sendMessage($chat_id, $msg, $parse_mode, $reply_to_message_id, $disable
 
 	$res = post($tg_api_url."sendMessage", $post);
     return "Response: ".$res;
-}
-
-function sm($chat_id, $text){
-	file_get_contents($tg_api_url.'sendMessage?chat_id='.$chat_id.'&text='.urlencode($text));
 }
 
 ?>
