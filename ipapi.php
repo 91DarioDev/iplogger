@@ -1,32 +1,34 @@
 <?php
+
+
+/*
+    iplogger - receive on telegram the ip info and the location of the user who clicked the link
+    Copyright (C) 2018  91DarioDev github.com/91DarioDev
+
+    iplogger is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    iplogger is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with iplogger.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 require('config.php');
 
 function get_ip_info($ip){
-  $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
-  var_dump($query);
-  if($query && $query['status'] == 'success') {
-    return $query;
-  } else {
-    echo 'Unable to get location';
-  }
+    $query = json_decode(file_get_contents('http://ip-api.com/json/'.$ip), true);
+    if($query && $query['status'] == 'success'){
+        return $query;
+    } else {
+        return null;
+    }
 }
 
-
-function ip2($ip){
-  global $api_ipstack_token;
-  // Initialize CURL:
-  $ch = curl_init('http://api.ipstack.com/'.$ip.'?access_key='.$api_ipstack_token.'');
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-  // Store the data:
-  $json = curl_exec($ch);
-  curl_close($ch);
-
-  // Decode JSON response:
-  $api_result = json_decode($json, true);
-
-  // Output the "capital" object inside "location"
-  echo $api_result['location']['capital'];
-  print_r($api_result);
-}
 ?>
