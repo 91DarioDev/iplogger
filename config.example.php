@@ -21,5 +21,6 @@
 
 $bot_token = 'example';
 $bot_admin_id = 'example';
+$website_redirection = 'https://google.com';
 
 ?>

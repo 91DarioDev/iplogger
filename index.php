@@ -56,5 +56,8 @@ if ($res !== null){
 	);
 }
 
+header("Location: $website_redirection");
+die();
+
 
 ?>
