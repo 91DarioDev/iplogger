@@ -30,7 +30,7 @@ $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $accept=$_SERVER['HTTP_ACCEPT_LANGUAGE'];
 $today = date("l, F j, Y, g:i a") ;
 $script_url = $_SERVER['SCRIPT_URI'];
-$tinyurl = createTinyUrl($script_url);
+$tinyurl = get_timed_link($script_url);
 
 $message = "
 Ip: $ip
