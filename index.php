@@ -49,7 +49,7 @@ if ($res !== null){
 		$message .= $key.": ".$value."\n";  
 	}
 }
-
+$message .= "source code: https://github.com/91DarioDev/iplogger";
 $first_message = sendMessage($bot_admin_id, $message);
 
 if ($res !== null){
