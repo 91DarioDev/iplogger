@@ -26,6 +26,7 @@ require('ipapi.php');
 require('tinyurlapi.php');
 
 $ip = $_SERVER['REMOTE_ADDR'];
+$lid = $_GET['id'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $accept=$_SERVER['HTTP_ACCEPT_LANGUAGE'];
 $today = date("l, F j, Y, g:i a") ;
@@ -39,6 +40,7 @@ Lingua: $accept
 Giorno & Ora : $today
 Url: $script_url
 TinyUrl: $tinyurl
+ID: $lid
 ";
 
 $res = get_ip_info($ip);
