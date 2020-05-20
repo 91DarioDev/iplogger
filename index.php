@@ -25,6 +25,8 @@ require('config.php');
 require('ipapi.php');
 require('tinyurlapi.php');
 
+if ($_GET['redir']) header('Location: '.$_GET['redir']);
+
 $ip = $_SERVER['REMOTE_ADDR'];
 $lid = $_GET['id'];
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
