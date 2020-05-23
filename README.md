@@ -19,6 +19,6 @@ To immediately redirect on another page you could add the link of destination as
 
 Example of a url having both the two optional parameters:
 
-https://iplogger.com/?id="mario_rossi"&redir="https://Google.com"
+https://iplogger.com/?id=mario_rossi&redir=https://Google.com
 
 Of course short your link with external tools before of send it.
