@@ -17,8 +17,10 @@ To recognize who clicked you could add in query string the parameter "id" where 
 
 To immediately redirect on another page you could add the link of destination as "redir" parameter in query string.
 
-Example of a url having both the two optional parameters:
+geox param ask the user to share is location to get the accurate gps location. if he does not acconsent you still get the usual data anyways.
 
-https://iplogger.com/?id=mario_rossi&redir=https://Google.com
+Example of a url having all the three optional parameters:
+
+https://iplogger.com/?id=mario_rossi&redir=https://Google.com&geox=true
 
 Of course short your link with external tools before of send it.
