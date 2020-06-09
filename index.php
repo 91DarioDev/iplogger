@@ -75,6 +75,9 @@ if (!in_array($_SERVER['HTTP_USER_AGENT'], $BROWSERS_TO_IGNORE)) {
 
 if ( $_GET['geox'] == 'true') {
 	if (isset($_GET['redir']) ){
+      if (in_array($_SERVER['HTTP_USER_AGENT'], $BROWSERS_TO_IGNORE)) {
+      	header('Location: '.$_GET['redir']);
+      }
       echo '<html>
           <head>
               <script>
