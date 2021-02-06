@@ -36,7 +36,7 @@ function post($url, $data) {
 }
 
 //SendMessage
-function sendMessage($chat_id, $msg, $parse_mode='HTML', $reply_to_message_id=NULL, $disable_web_page_preview=false, $disable_notification=false, $reply_markup=NULL) {
+function sendMessage($chat_id, $msg, $parse_mode='HTML', $reply_to_message_id=NULL, $disable_web_page_preview=true, $disable_notification=false, $reply_markup=NULL) {
 	global $tg_api_url;
 	$post = array(
       'chat_id' => $chat_id,
