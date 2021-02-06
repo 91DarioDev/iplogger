@@ -32,6 +32,6 @@ $commento = $_GET['commento'];
 require('telegramapi.php');
 require('config.php');
 
-$message = "Commento da ".filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS)." testo: ".filter_var($commento, FILTER_SANITIZE_SPECIAL_CHARS);
+$message = "Commento da ".filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS)." \nTesto: ".filter_var($commento, FILTER_SANITIZE_SPECIAL_CHARS);
 sendMessage($bot_admin_id, $message);
 ?>
